@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next Room | Student move-out reuse</title>
+<meta name="description" content="A student-designed prototype for passing on useful household items at move-out in Adelaide.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="shell header">
+  <a class="brand" href="./"><span class="brandmark" aria-hidden="true">↗</span> next room<span class="period">.</span></a>
+  <nav aria-label="Main"><a href="#shelf">Browse</a><a href="#how">How it works</a></nav>
+  <a class="button outline head-cta" href="#waitlist">Try the waitlist <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main" class="shell">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="tag"><span></span> Adelaide student reuse prototype</p>
+      <h1 id="hero-title">Good things<br> move <em>on.</em></h1>
+      <p class="lede">Moving out? Pass on the things you can’t take. Moving in? Pick up an everyday essential for free.</p>
+      <div class="actions"><a class="button dark" href="#shelf">Explore demo items <span aria-hidden="true">↗</span></a><a class="text-link" href="#questionnaire">Take the questionnaire <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <span class="art-index">NEXT ROOM / ADELAIDE</span>
+      <div class="arch"></div>
+      <div class="art-ground"></div>
+      <div class="ground-shadow"></div>
+      <div class="art-box"><i></i><b>↗</b></div>
+      <div class="art-crate"><b></b><b></b><b></b></div>
+      <div class="art-pan"><i></i></div>
+      <div class="art-plant"><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="art-star">✳</div>
+      <div class="art-label"><strong>One building.</strong> More useful stuff.</div>
+    </div>
+  </section>
+  <section class="strip" aria-label="Pilot at a glance">
+    <div><strong>Free</strong><span>for incoming residents</span></div>
+    <div><strong>20 items</strong><span>proposed pilot limit</span></div>
+    <div><strong>Two windows</strong><span>for building pickup</span></div>
+  </section>
+  <section class="section shelf" id="shelf">
+    <div class="section-head"><div><h2>The shelf</h2><p>Sample listings for a proposed pilot at UniLodge Metro Adelaide.</p></div>
+      <div class="filters" role="group" aria-label="Filter the shelf">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All items</button>
+        <button class="chip" type="button" data-filter="kitchen" aria-pressed="false">Kitchen</button>
+        <button class="chip" type="button" data-filter="home" aria-pressed="false">Home</button>
+      </div>
+    </div>
+    <div id="items" class="items"></div>
+    <noscript><p>Enable JavaScript to browse the example items or try the forms.</p></noscript>
+    <p id="item-status" class="assist" role="status"></p>
+  </section>
+  <section class="section how" id="how">
+    <h2>From one room to the next</h2>
+    <div class="steps">
+      <article><span>01</span><h3>Offer an item</h3><p>Tell the coordinator what you own and when you’re leaving. The pilot would accept clean, portable, non-electrical household items.</p></article>
+      <article><span>02</span><h3>Match pickup dates</h3><p>The coordinator would match residents into two lobby pickup windows. Unconfirmed claims would go to the waitlist.</p></article>
+      <article><span>03</span><h3>Pick up for free</h3><p>Collect your item in an approved common area. If dates don’t overlap, storage would need building approval and a clear collection deadline.</p></article>
+    </div>
+  </section>
+  <section class="section forms" aria-label="Try the forms">
+    <article id="waitlist" class="form-panel wait-panel">
+      <h2>Try the waitlist</h2>
+      <p>Show which items you’d want to give or collect. This demo saves preferences on this browser only and sends no alerts.</p>
+      <form id="wait-form" autocomplete="off">
+        <label for="wait-role">I’d like to</label>
+        <select id="wait-role" name="role" required><option value="">Choose one</option><option value="collect">Collect an item</option><option value="offer">Offer an item</option></select>
+        <label for="wait-item">Item or category</label>
+        <select id="wait-item" name="item" required><option value="">Choose one</option><option>Cookware set</option><option>Collapsible drying rack</option><option>Board game bundle</option><option>Kitchenware</option><option>Other household items</option><option>Any suitable item</option></select>
+        <label for="wait-time">My likely timing</label>
+        <select id="wait-time" name="timing" required><option value="">Choose one</option><option>Within 7 days</option><option>Within 8–14 days</option><option>Later or unsure</option></select>
+        <button class="button dark" type="submit">Save demo preference <span aria-hidden="true">↗</span></button>
+      </form>
+      <p id="wait-status" role="status" class="notice"></p>
+      <div id="saved" hidden><h3>Saved on this browser</h3><ul id="wait-entries"></ul></div>
+    </article>
+    <article id="questionnaire" class="form-panel survey-panel">
+      <h2>Moving questionnaire</h2>
+      <p>About two minutes. Your answers stay on this browser until you choose to download them. Please leave out names, addresses and contact details.</p>
+      <form id="survey-form" autocomplete="off">
+        <fieldset><legend>1. In the past two weeks, which best describes you?</legend><label class="check"><input type="radio" name="role" value="Moved out" required> Moved out of student accommodation</label><label class="check"><input type="radio" name="role" value="Moved in"> Moved into student accommodation</label><label class="check"><input type="radio" name="role" value="Moved in and out"> Moved between student accommodation</label><label class="check"><input type="radio" name="role" value="Neither"> Neither</label></fieldset>
+        <label for="survey-items">2. What did you have to pass on or buy?</label>
+        <select id="survey-items" name="items" required><option value="">Choose one</option><option>Kitchenware</option><option>Small home items</option><option>Both</option><option>Something else</option><option>Neither / not applicable</option></select>
+        <label for="survey-barrier">3. What was the biggest difficulty?</label>
+        <select id="survey-barrier" name="barrier" required><option value="">Choose one</option><option>Transport</option><option>Finding someone to take the item</option><option>Pickup or move-out timing</option><option>Storage or space</option><option>Cost of replacements</option><option>Item condition</option><option>Something else</option><option>No difficulty / not applicable</option></select>
+        <label for="survey-lobby">4. How likely would you be to try a free lobby handover?</label>
+        <select id="survey-lobby" name="lobby" required><option value="">Choose one</option><option>Very likely</option><option>Somewhat likely</option><option>Unsure</option><option>Somewhat unlikely</option><option>Very unlikely</option></select>
+        <label for="survey-window">5. Which pickup window would work best?</label>
+        <select id="survey-window" name="window" required><option value="">Choose one</option><option>Weekday evening</option><option>Weekend morning</option><option>Either</option><option>Neither / depends on the date</option></select>
+        <label for="survey-comment">6. What would stop you from using it? <span>(Optional)</span></label>
+        <textarea id="survey-comment" name="comment" maxlength="300" rows="3"></textarea>
+        <div class="actions"><button class="button dark" type="submit">Save response</button><button id="export" class="button outline" type="button" disabled>Download my response</button></div>
+      </form>
+      <p id="survey-status" role="status" class="notice"></p>
+      <button class="text-link clear" id="clear-response" type="button" hidden>Delete saved response</button>
+    </article>
+  </section>
+</main>
+<footer class="shell footer"><a class="brand" href="./"><span class="brandmark" aria-hidden="true">↗</span> next room<span class="period">.</span></a><p>Independent coursework prototype. UniLodge is the proposed pilot location. The listings are examples.</p></footer>
+</body>
+</html>
