@@ -7,7 +7,7 @@
 <meta name="description" content="A student-designed prototype for passing on useful household items at move-out in Adelaide.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
-<script src="app.js" defer></script>
+<script src="app.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -80,23 +80,46 @@
     </article>
     <article id="questionnaire" class="form-panel survey-panel">
       <h2>Moving questionnaire</h2>
-      <p>About two minutes. Your answers stay on this browser until you choose to download them. Please leave out names, addresses and contact details.</p>
+      <p>Optional coursework questionnaire. Think about your latest move in the past 14 days. Answers stay in this browser unless you download and share them. Please leave out names, addresses and contact details.</p>
       <form id="survey-form" autocomplete="off">
-        <fieldset><legend>1. In the past two weeks, which best describes you?</legend><label class="check"><input type="radio" name="role" value="Moved out" required> Moved out of student accommodation</label><label class="check"><input type="radio" name="role" value="Moved in"> Moved into student accommodation</label><label class="check"><input type="radio" name="role" value="Moved in and out"> Moved between student accommodation</label><label class="check"><input type="radio" name="role" value="Neither"> Neither</label></fieldset>
-        <label for="survey-items">2. What did you have to pass on or buy?</label>
-        <select id="survey-items" name="items" required><option value="">Choose one</option><option>Kitchenware</option><option>Small home items</option><option>Both</option><option>Something else</option><option>Neither / not applicable</option></select>
-        <label for="survey-barrier">3. What was the biggest difficulty?</label>
-        <select id="survey-barrier" name="barrier" required><option value="">Choose one</option><option>Transport</option><option>Finding someone to take the item</option><option>Pickup or move-out timing</option><option>Storage or space</option><option>Cost of replacements</option><option>Item condition</option><option>Something else</option><option>No difficulty / not applicable</option></select>
-        <label for="survey-lobby">4. How likely would you be to try a free lobby handover?</label>
-        <select id="survey-lobby" name="lobby" required><option value="">Choose one</option><option>Very likely</option><option>Somewhat likely</option><option>Unsure</option><option>Somewhat unlikely</option><option>Very unlikely</option></select>
-        <label for="survey-window">5. Which pickup window would work best?</label>
-        <select id="survey-window" name="window" required><option value="">Choose one</option><option>Weekday evening</option><option>Weekend morning</option><option>Either</option><option>Neither / depends on the date</option></select>
-        <label for="survey-comment">6. What would stop you from using it? <span>(Optional)</span></label>
-        <textarea id="survey-comment" name="comment" maxlength="300" rows="3"></textarea>
+        <fieldset>
+          <legend>In the past 14 days, did you move into or out of student accommodation in Adelaide?</legend>
+          <label class="check"><input type="radio" name="role" value="Moved out" required> Yes, I moved out</label>
+          <label class="check"><input type="radio" name="role" value="Moved in"> Yes, I moved in</label>
+          <label class="check"><input type="radio" name="role" value="Moved in and out"> Yes, I moved between student residences</label>
+          <label class="check"><input type="radio" name="role" value="Neither"> No</label>
+        </fieldset>
+        <label for="survey-outgoing" data-move="out" hidden>Think of one usable small household item you didn’t take. What happened to it?</label>
+        <select id="survey-outgoing" name="outgoing" data-move="out" disabled hidden required>
+          <option value="">Choose one</option><option>Gave it to someone</option><option>Donated it</option><option>Sold it</option><option>Stored it</option><option>Put it in general rubbish</option><option>Left it behind</option><option>Other or unsure</option><option>I took everything or had nothing to pass on</option>
+        </select>
+        <label for="survey-incoming" data-move="in" hidden>Think of one small household item you needed when you moved in. How did you get it?</label>
+        <select id="survey-incoming" name="incoming" data-move="in" disabled hidden required>
+          <option value="">Choose one</option><option>Bought new</option><option>Bought second-hand</option><option>Received it for free</option><option>Borrowed it</option><option>I went without or haven’t got it yet</option><option>Other or unsure</option><option>I didn’t need anything</option>
+        </select>
+        <label for="survey-barrier" data-move="any" hidden>Thinking about small household items on that move, what was hardest, if anything?</label>
+        <select id="survey-barrier" name="barrier" data-move="any" disabled hidden required>
+          <option value="">Choose one</option><option>Transport or carrying items</option><option>Finding something or someone to take it</option><option>Pickup or move-out timing</option><option>Storage or space</option><option>Replacement cost</option><option>Trusting the item's condition</option><option>Something else</option><option>Nothing was difficult</option>
+        </select>
+        <label for="survey-lobby" data-move="any" hidden>On a future move, how likely would you be to offer or collect a used item at a free pickup in your building’s lobby?</label>
+        <select id="survey-lobby" name="lobby" data-move="any" disabled hidden required>
+          <option value="">Choose one</option><option>Very likely</option><option>Somewhat likely</option><option>Neither likely nor unlikely</option><option>Somewhat unlikely</option><option>Very unlikely</option><option>Not sure</option>
+        </select>
+        <label for="survey-window" data-move="any" hidden>Which pickup window, if any, would suit you?</label>
+        <select id="survey-window" name="window" data-move="any" disabled hidden required>
+          <option value="">Choose one</option><option>Weekday evening</option><option>Weekend morning</option><option>Either</option><option>Neither time</option><option>Depends on the date</option><option>I wouldn’t use the pickup</option>
+        </select>
+        <label for="survey-comment" data-move="any" hidden>What would make a pickup work for you, or rule it out? <span>(Optional)</span></label>
+        <textarea id="survey-comment" name="comment" data-move="any" maxlength="300" rows="3" disabled hidden></textarea>
+        <p id="survey-ineligible" class="assist" hidden>The remaining questions are for recent movers. You can save your answer here.</p>
         <div class="actions"><button class="button dark" type="submit" disabled>Save response</button><button id="export" class="button outline" type="button" disabled>Download my response</button></div>
       </form>
       <p id="survey-status" role="status" class="notice"></p>
       <button class="text-link clear" id="clear-response" type="button" hidden>Delete saved response</button>
+      <div id="legacy-response" hidden>
+        <p class="assist">This browser has a saved answer from the earlier questionnaire.</p>
+        <div class="actions"><button class="button outline" id="legacy-export" type="button">Download earlier response</button><button class="text-link" id="legacy-clear" type="button">Delete earlier response</button></div>
+      </div>
     </article>
   </section>
 </main>

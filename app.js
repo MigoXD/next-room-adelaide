@@ -6,7 +6,8 @@ const shelves = [
   { item: "Board game bundle", category: "home", artwork: "games", description: "Two small games for a shared apartment." },
 ];
 const waitKey = "next-room-waitlist-v1";
-const surveyKey = "next-room-survey-v1";
+const legacySurveyKey = "next-room-survey-v1";
+const surveyKey = "next-room-survey-v2";
 const memory = new Map();
 
 function read(key, fallback) {
@@ -120,16 +121,40 @@ const surveyForm = document.querySelector("#survey-form");
 const surveyStatus = document.querySelector("#survey-status");
 const exportButton = document.querySelector("#export");
 const clearButton = document.querySelector("#clear-response");
-const surveyFields = ["submitted_at", "role", "items", "barrier", "lobby", "window", "comment"];
+const legacyFields = ["submitted_at", "role", "items", "barrier", "lobby", "window", "comment"];
+const surveyFields = ["submitted_at", "role", "outgoing", "incoming", "barrier", "lobby", "window", "comment"];
+const moveQuestions = surveyForm.querySelectorAll("[data-move]");
+const scopeMessage = document.querySelector("#survey-ineligible");
+const legacyResponse = document.querySelector("#legacy-response");
+
+function showMoveQuestions() {
+  const role = surveyForm.elements.role.value;
+  const visible = {
+    in: role === "Moved in" || role === "Moved in and out",
+    out: role === "Moved out" || role === "Moved in and out",
+    any: role !== "" && role !== "Neither",
+  };
+  for (const question of moveQuestions) {
+    const hidden = !visible[question.dataset.move];
+    question.hidden = hidden;
+    if (question.matches("select, textarea")) question.disabled = hidden;
+  }
+  scopeMessage.hidden = role !== "Neither";
+}
 
 function showResponse() {
   const response = read(surveyKey, null);
   exportButton.disabled = !response;
   clearButton.hidden = !response;
   if (response) {
-    for (const key of surveyFields.slice(1)) surveyForm.elements[key].value = response[key];
+    for (const key of surveyFields.slice(1)) surveyForm.elements[key].value = response[key] ?? "";
   }
+  showMoveQuestions();
 }
+
+surveyForm.addEventListener("change", event => {
+  if (event.target.name === "role") showMoveQuestions();
+});
 
 surveyForm.addEventListener("submit", event => {
   event.preventDefault();
@@ -147,16 +172,25 @@ function csvCell(value) {
   return '"' + literal.replaceAll('"', '""') + '"';
 }
 
-exportButton.addEventListener("click", () => {
-  const response = read(surveyKey, null);
+function downloadResponse(key, fields, filename) {
+  const response = read(key, null);
   if (!response) return;
-  const csv = surveyFields.join(",") + "\r\n" + surveyFields.map(key => csvCell(response[key])).join(",") + "\r\n";
+  const csv = fields.join(",") + "\r\n" + fields.map(field => csvCell(response[field] ?? "")).join(",") + "\r\n";
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
   link.href = url;
-  link.download = "next-room-response.csv";
+  link.download = filename;
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+exportButton.addEventListener("click", () => downloadResponse(surveyKey, surveyFields, "next-room-response-v2.csv"));
+document.querySelector("#legacy-export").addEventListener("click", () => downloadResponse(legacySurveyKey, legacyFields, "next-room-response-v1.csv"));
+document.querySelector("#legacy-clear").addEventListener("click", () => {
+  const persisted = clear(legacySurveyKey);
+  legacyResponse.hidden = true;
+  surveyStatus.textContent = persisted ? "Earlier response deleted from this browser." : "Earlier response cleared for this session.";
+  surveyForm.querySelector("input").focus();
 });
 
 clearButton.addEventListener("click", () => {
@@ -170,6 +204,7 @@ clearButton.addEventListener("click", () => {
 showItems("all");
 showWaitlist();
 showResponse();
+legacyResponse.hidden = !read(legacySurveyKey, null);
 
 waitForm.querySelector("[type=submit]").disabled = false;
 surveyForm.querySelector("[type=submit]").disabled = false;
