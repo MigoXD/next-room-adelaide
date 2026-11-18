@@ -6,26 +6,24 @@
 <title>Next Room | Student move-out reuse</title>
 <meta name="description" content="A student-designed prototype for passing on useful household items at move-out in Adelaide.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css">
-<script src="app.js?v=2" defer></script>
+<link rel="stylesheet" href="style.css?v=3">
+<script src="app.js?v=3" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="shell header">
-  <a class="brand" href="./"><span class="brandmark" aria-hidden="true">↗</span> next room<span class="period">.</span></a>
-  <nav aria-label="Main"><a href="#shelf">Browse</a><a href="#how">How it works</a></nav>
-  <a class="button outline head-cta" href="#waitlist">Try the waitlist <span aria-hidden="true">↗</span></a>
+  <a class="brand" href="./"><img class="brandmark" src="icon.svg" alt="" width="31" height="31"> Next Room</a>
+  <nav aria-label="Main"><a href="#shelf">Browse</a><a href="#how">How it works</a><a href="#questionnaire">Questionnaire</a></nav>
+  <a class="button outline head-cta" href="#waitlist">Try the waitlist</a>
 </header>
 <main id="main" class="shell">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="tag"><span></span> Adelaide student reuse prototype</p>
       <h1 id="hero-title">Good things<br> move <em>on.</em></h1>
-      <p class="lede">Moving out? Pass on the things you can’t take. Moving in? Pick up an everyday essential for free.</p>
-      <div class="actions"><a class="button dark" href="#shelf">Explore demo items <span aria-hidden="true">↗</span></a><a class="text-link" href="#questionnaire">Take the questionnaire <span aria-hidden="true">→</span></a></div>
+      <p class="lede">A proposed exchange for small household items when students move in or out of accommodation in Adelaide.</p>
+      <div class="actions"><a class="button dark" href="#shelf">Browse example items <span aria-hidden="true">↓</span></a><a class="text-link" href="#questionnaire">Take the questionnaire</a></div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <span class="art-index">NEXT ROOM / ADELAIDE</span>
       <div class="arch"></div>
       <div class="art-ground"></div>
       <div class="ground-shadow"></div>
@@ -33,17 +31,15 @@
       <div class="art-crate"><b></b><b></b><b></b></div>
       <div class="art-pan"><i></i></div>
       <div class="art-plant"><i></i><i></i><i></i><i></i><b></b></div>
-      <div class="art-star">✳</div>
-      <div class="art-label"><strong>One building.</strong> More useful stuff.</div>
     </div>
   </section>
   <section class="strip" aria-label="Pilot at a glance">
-    <div><strong>Free</strong><span>for incoming residents</span></div>
-    <div><strong>20 items</strong><span>proposed pilot limit</span></div>
-    <div><strong>Two windows</strong><span>for building pickup</span></div>
+    <div><strong>Free pickup</strong><span>for incoming residents</span></div>
+    <div><strong>20 items</strong><span>at most in the pilot</span></div>
+    <div><strong>Two pickup times</strong><span>in one building</span></div>
   </section>
   <section class="section shelf" id="shelf">
-    <div class="section-head"><div><h2>The shelf</h2><p>Sample listings for a proposed pilot at UniLodge Metro Adelaide.</p></div>
+    <div class="section-head"><div><h2>The shelf</h2><p>Examples of what the UniLodge Metro Adelaide pilot could accept.</p></div>
       <div class="filters" role="group" aria-label="Filter the shelf">
         <button class="chip" type="button" data-filter="all" aria-pressed="true">All items</button>
         <button class="chip" type="button" data-filter="kitchen" aria-pressed="false">Kitchen</button>
@@ -55,17 +51,17 @@
     <p id="item-status" class="assist" role="status"></p>
   </section>
   <section class="section how" id="how">
-    <h2>From one room to the next</h2>
+    <h2>How it would work</h2>
     <div class="steps">
-      <article><span>01</span><h3>Offer an item</h3><p>Tell the coordinator what you own and when you’re leaving. The pilot would accept clean, portable, non-electrical household items.</p></article>
-      <article><span>02</span><h3>Match pickup dates</h3><p>The coordinator would match residents into two lobby pickup windows. Unconfirmed claims would go to the waitlist.</p></article>
-      <article><span>03</span><h3>Pick up for free</h3><p>Collect your item in an approved common area. If dates don’t overlap, storage would need building approval and a clear collection deadline.</p></article>
+      <article><h3>Offer an item</h3><p>Tell the coordinator what you own and when you’re leaving. The pilot would accept clean, portable, non-electrical items.</p></article>
+      <article><h3>Agree on a time</h3><p>Pick one of two pickup times. If someone doesn’t confirm, the coordinator would offer the item to the next person on the waitlist.</p></article>
+      <article><h3>Collect it for free</h3><p>Pick up in an approved common area. Temporary storage would need building approval and a clear collection deadline.</p></article>
     </div>
   </section>
   <section class="section forms" aria-label="Try the forms">
     <article id="waitlist" class="form-panel wait-panel">
       <h2>Try the waitlist</h2>
-      <p>Show which items you’d want to give or collect. This demo saves preferences on this browser only and sends no alerts.</p>
+      <p>Choose what you’d offer or collect. The demo saves your preferences in this browser. It won’t reserve items or send alerts.</p>
       <form id="wait-form" autocomplete="off">
         <label for="wait-role">I’d like to</label>
         <select id="wait-role" name="role" required><option value="">Choose one</option><option value="collect">Collect an item</option><option value="offer">Offer an item</option></select>
@@ -73,7 +69,7 @@
         <select id="wait-item" name="item" required><option value="">Choose one</option><option>Cookware set</option><option>Collapsible drying rack</option><option>Board game bundle</option><option>Kitchenware</option><option>Other household items</option><option>Any suitable item</option></select>
         <label for="wait-time">My likely timing</label>
         <select id="wait-time" name="timing" required><option value="">Choose one</option><option>Within 7 days</option><option>Within 8–14 days</option><option>Later or unsure</option></select>
-        <button class="button dark" type="submit" disabled>Save demo preference <span aria-hidden="true">↗</span></button>
+        <button class="button dark" type="submit" disabled>Save demo preference</button>
       </form>
       <p id="wait-status" role="status" class="notice"></p>
       <div id="saved" hidden><h3>Saved on this browser</h3><ul id="wait-entries"></ul></div>
@@ -123,6 +119,6 @@
     </article>
   </section>
 </main>
-<footer class="shell footer"><a class="brand" href="./"><span class="brandmark" aria-hidden="true">↗</span> next room<span class="period">.</span></a><p>Independent coursework prototype. UniLodge is the proposed pilot location. The listings are examples.</p></footer>
+<footer class="shell footer"><a class="brand" href="./"><img class="brandmark" src="icon.svg" alt="" width="31" height="31"> Next Room</a><p>Independent coursework prototype for a proposed pilot at UniLodge Metro Adelaide.</p></footer>
 </body>
 </html>

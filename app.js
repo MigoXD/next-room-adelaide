@@ -53,7 +53,7 @@ function showItems(filter) {
   for (const { item, artwork, description } of visible) {
     const card = document.createElement("article");
     card.className = "item";
-    card.innerHTML = '<div class="product" aria-hidden="true"><div class="product-object"></div><span class="free">Free</span></div><div class="item-body"><h3></h3><p></p><button class="button outline" type="button">Try claiming</button></div>';
+    card.innerHTML = '<div class="product" aria-hidden="true"><div class="product-object"></div></div><div class="item-body"><h3></h3><p></p><button class="text-link" type="button">Try claiming</button></div>';
     card.firstElementChild.classList.add(artwork);
     card.querySelector("h3").textContent = item;
     card.querySelector("p").textContent = description;
