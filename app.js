@@ -170,3 +170,6 @@ clearButton.addEventListener("click", () => {
 showItems("all");
 showWaitlist();
 showResponse();
+
+waitForm.querySelector("[type=submit]").disabled = false;
+surveyForm.querySelector("[type=submit]").disabled = false;

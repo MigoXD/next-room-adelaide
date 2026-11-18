@@ -73,7 +73,7 @@
         <select id="wait-item" name="item" required><option value="">Choose one</option><option>Cookware set</option><option>Collapsible drying rack</option><option>Board game bundle</option><option>Kitchenware</option><option>Other household items</option><option>Any suitable item</option></select>
         <label for="wait-time">My likely timing</label>
         <select id="wait-time" name="timing" required><option value="">Choose one</option><option>Within 7 days</option><option>Within 8–14 days</option><option>Later or unsure</option></select>
-        <button class="button dark" type="submit">Save demo preference <span aria-hidden="true">↗</span></button>
+        <button class="button dark" type="submit" disabled>Save demo preference <span aria-hidden="true">↗</span></button>
       </form>
       <p id="wait-status" role="status" class="notice"></p>
       <div id="saved" hidden><h3>Saved on this browser</h3><ul id="wait-entries"></ul></div>
@@ -93,7 +93,7 @@
         <select id="survey-window" name="window" required><option value="">Choose one</option><option>Weekday evening</option><option>Weekend morning</option><option>Either</option><option>Neither / depends on the date</option></select>
         <label for="survey-comment">6. What would stop you from using it? <span>(Optional)</span></label>
         <textarea id="survey-comment" name="comment" maxlength="300" rows="3"></textarea>
-        <div class="actions"><button class="button dark" type="submit">Save response</button><button id="export" class="button outline" type="button" disabled>Download my response</button></div>
+        <div class="actions"><button class="button dark" type="submit" disabled>Save response</button><button id="export" class="button outline" type="button" disabled>Download my response</button></div>
       </form>
       <p id="survey-status" role="status" class="notice"></p>
       <button class="text-link clear" id="clear-response" type="button" hidden>Delete saved response</button>
