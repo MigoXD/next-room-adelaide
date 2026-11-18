@@ -60,7 +60,7 @@ function showItems(filter) {
     claim.setAttribute("aria-label", "Try claiming: " + item);
     claim.addEventListener("click", () => {
       waitForm.elements.role.value = "collect";
-      waitForm.elements.item.value = item;
+      waitForm.elements.namedItem("item").value = item;
       waitStatus.textContent = "Demo selection: " + item + ". Choose your timing to continue.";
       document.querySelector("#waitlist").scrollIntoView();
       waitForm.elements.timing.focus({ preventScroll: true });
